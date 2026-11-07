@@ -194,11 +194,11 @@ export function Gallery() {
         </div>
       </div>
       {idx !== null && (
-        <div role="dialog" aria-modal="true" aria-label={gallery[idx].alt} className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/95 p-4" onClick={() => setIdx(null)}>
+        <div role="dialog" aria-modal="true" aria-label={gallery[idx]!.alt} className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/95 p-4" onClick={() => setIdx(null)}>
           <button autoFocus aria-label="Close" className="absolute right-4 top-4 inline-flex h-12 w-12 items-center justify-center rounded-full text-on-ink hover:bg-on-ink/10" onClick={() => setIdx(null)}>
             <X />
           </button>
-          <img src={gallery[idx].src} alt={gallery[idx].alt} className="max-h-[85vh] max-w-full rounded-xl object-contain" onClick={(e) => e.stopPropagation()} />
+          <img src={gallery[idx]!.src} alt={gallery[idx]!.alt} className="max-h-[85vh] max-w-full rounded-xl object-contain" onClick={(e) => e.stopPropagation()} />
         </div>
       )}
     </section>
@@ -263,7 +263,7 @@ function Detail({ icon: Icon, label, value }: { icon: typeof MapPin; label: stri
 
 export function Locations() {
   const locs = restaurant.locations;
-  const [sel, setSel] = useState(locs[0].id);
+  const [sel, setSel] = useState(locs[0]!.id);
   const current = locs.find((l) => l.id === sel)!;
   const images = [interior, grill];
   return (
@@ -369,7 +369,7 @@ export function Contact() {
               <SocialLinks />
             </div>
             <div className="flex flex-col gap-3">
-              <a href={r.locations[0].mapsUrl} target="_blank" rel="noopener noreferrer" className="btn-gold"><Navigation className="h-4 w-4" /> Get Directions</a>
+              <a href={r.locations[0]!.mapsUrl} target="_blank" rel="noopener noreferrer" className="btn-gold"><Navigation className="h-4 w-4" /> Get Directions</a>
               {r.whatsapp && (
                 <a href={`https://wa.me/${r.whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn-outline-dark"><MessageCircle className="h-4 w-4" /> Chat on WhatsApp</a>
               )}
