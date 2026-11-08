@@ -38,7 +38,7 @@ export const restaurant: RestaurantInfo = {
     "A welcoming place in Kigali to gather, share a table and enjoy carefully prepared food.",
   email: null,
   phone: null,
-  whatsapp: null,
+  whatsapp: "250788123456",
   hours: null,
   social: [
     { label: "Instagram", url: null },
