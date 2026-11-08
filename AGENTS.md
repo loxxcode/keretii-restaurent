@@ -28,3 +28,6 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Reuse the shared site Logo component for brand placements so the supplied asset stays consistent.
+- Menu cards use the shared Radix Dialog for dish details so keyboard dismissal, focus containment, and focus restoration are handled consistently.

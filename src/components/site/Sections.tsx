@@ -11,7 +11,10 @@ import local from "@/assets/local.jpg";
 import snacks from "@/assets/snacks.jpg";
 import drinks from "@/assets/drinks.jpg";
 import dessert from "@/assets/dessert.jpg";
-import { categories, formatPrice, menu, type Category, type MenuItem } from "@/data/menu";
+import { categories, menu, type Category } from "@/data/menu";
+import { Button } from "@/components/ui/button";
+import { Logo } from "./Logo";
+import { MenuCard } from "./MenuCard";
 import { restaurant, TBC, telHref, type Location } from "@/data/restaurant";
 import { navLinks } from "./Navbar";
 
@@ -83,25 +86,6 @@ export function About() {
   );
 }
 
-function MenuCard({ item }: { item: MenuItem }) {
-  return (
-    <article className="group overflow-hidden rounded-2xl bg-card shadow-card transition-transform duration-300 hover:-translate-y-1">
-      <div className="aspect-[4/3] overflow-hidden">
-        <img src={item.image} alt={item.name} loading="lazy" width={1024} height={1024} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-      </div>
-      <div className="p-6">
-        <span className="text-xs font-semibold uppercase tracking-wider text-accent">{item.category}</span>
-        <div className="mt-2 flex items-baseline justify-between gap-4">
-          <h3 className="text-2xl">{item.name}</h3>
-          <span className="whitespace-nowrap font-bold">{formatPrice(item)}</span>
-        </div>
-        <p className="mt-2 text-sm text-muted-foreground">{item.description}</p>
-        <p className="mt-3 text-[11px] uppercase tracking-wider text-muted-foreground">Sample item · price to be confirmed</p>
-      </div>
-    </article>
-  );
-}
-
 export function MenuSection() {
   const [active, setActive] = useState<Category | "All">("All");
   const items = active === "All" ? menu : menu.filter((m) => m.category === active);
@@ -113,14 +97,14 @@ export function MenuSection() {
         </SectionHead>
         <div role="group" aria-label="Filter menu by category" className="mb-12 flex flex-wrap justify-center gap-2">
           {(["All", ...categories] as const).map((c) => (
-            <button
+            <Button
               key={c}
               onClick={() => setActive(c)}
               aria-pressed={active === c}
               className={`min-h-11 rounded-full px-5 text-sm font-semibold transition-colors ${active === c ? "bg-ink text-on-ink" : "bg-card text-foreground hover:bg-border"}`}
             >
               {c}
-            </button>
+            </Button>
           ))}
         </div>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -403,7 +387,7 @@ export function Footer() {
     <footer className="bg-ink pt-16 pb-8 text-on-ink-muted">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 md:grid-cols-3 lg:px-8">
         <div>
-          <p className="font-serif text-3xl text-on-ink">Keretii<span className="text-gold">.</span></p>
+          <a href="#home" aria-label="Keretii Restaurant home" className="inline-block"><Logo /></a>
           <p className="mt-3 max-w-xs text-sm">{restaurant.description}</p>
         </div>
         <nav aria-label="Footer">
