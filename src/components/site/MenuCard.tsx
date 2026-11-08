@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChefHat, Leaf } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { formatPrice, type MenuItem } from "@/data/menu";
@@ -33,9 +33,41 @@ export function MenuCard({ item }: { item: MenuItem }) {
           <p className="text-xs font-bold uppercase text-accent">{item.category}</p>
           <DialogTitle className="mt-3 font-serif text-3xl leading-tight sm:text-4xl">{item.name}</DialogTitle>
           <DialogDescription className="mt-4 text-base leading-relaxed">{item.description}</DialogDescription>
-          <div className="mt-6 flex items-center justify-between gap-4 border-t pt-5">
+
+          <section className="mt-7" aria-labelledby={`ingredients-${item.id}`}>
+            <h3 id={`ingredients-${item.id}`} className="flex items-center gap-2 text-xs font-bold uppercase text-accent">
+              <Leaf className="size-4" aria-hidden />
+              Ingredients
+            </h3>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {item.ingredients.map((ingredient) => (
+                <li key={ingredient} className="rounded-full border border-border bg-secondary px-3 py-1 text-sm text-secondary-foreground">
+                  {ingredient}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section className="mt-7" aria-labelledby={`recipe-${item.id}`}>
+            <h3 id={`recipe-${item.id}`} className="flex items-center gap-2 text-xs font-bold uppercase text-accent">
+              <ChefHat className="size-4" aria-hidden />
+              Recipe
+            </h3>
+            <ol className="mt-3 space-y-3">
+              {item.recipe.map((step, index) => (
+                <li key={step} className="flex gap-3">
+                  <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
+                    {index + 1}
+                  </span>
+                  <span className="text-sm leading-relaxed text-muted-foreground">{step}</span>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <div className="mt-7 flex items-center justify-between gap-4 border-t pt-5">
             <span className="text-xl font-bold text-primary">{formatPrice(item)}</span>
-            <p className="text-right text-xs text-muted-foreground">Sample item<br />Price to be confirmed</p>
+            <p className="text-right text-xs text-muted-foreground">Sample item<br />Price & recipe to be confirmed</p>
           </div>
         </div>
       </DialogContent>
