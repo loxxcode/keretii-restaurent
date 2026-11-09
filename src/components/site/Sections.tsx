@@ -28,15 +28,31 @@ function SectionHead({ eyebrow, title, light, children }: { eyebrow: string; tit
   );
 }
 
+const heroSlides = [
+  { src: hero, alt: "Grilled meats, rice and vegetables served by candlelight" },
+  { src: grill, alt: "Beef skewers with grilled plantain" },
+  { src: interior, alt: "Warmly lit restaurant dining room" },
+  { src: local, alt: "Bowl of greens stew with plantain and beans" },
+  { src: dessert, alt: "Chocolate dessert with berries" },
+];
+
 export function Hero() {
+  const [slide, setSlide] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setSlide((s) => (s + 1) % heroSlides.length), 5000);
+    return () => clearInterval(t);
+  }, [slide]);
   return (
-    <section id="home" className="relative flex min-h-[100svh] items-center overflow-hidden bg-ink">
-      <img src={hero} alt="Grilled meats, rice and vegetables served by candlelight" width={1920} height={1088} className="absolute inset-0 h-full w-full object-cover" />
+    <section id="home" className="relative flex min-h-svh items-center overflow-hidden bg-ink">
+      {heroSlides.map((h, i) => (
+        <img key={i} src={h.src} alt={i === slide ? h.alt : ""} aria-hidden={i !== slide} loading={i === 0 ? "eager" : "lazy"}
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${i === slide ? "opacity-100" : "opacity-0"}`} />
+      ))}
       <div className="absolute inset-0 bg-hero-overlay" />
       <div className="relative mx-auto w-full max-w-7xl px-5 pt-24 pb-16 lg:px-8">
         <p className="eyebrow animate-in fade-in slide-in-from-bottom-2 duration-700">Kigali · Rwanda</p>
         <h1 className="mt-4 max-w-4xl text-5xl leading-[1.02] text-on-ink sm:text-6xl lg:text-8xl animate-in fade-in slide-in-from-bottom-4 duration-700">
-          Welcome to <em className="text-gold">Keretii</em> Restaurant
+          Come hungry. <br/><em className="text-gold">Leave happy.</em> 
         </h1>
         <p className="mt-6 max-w-xl text-lg text-on-ink-muted md:text-xl">
           {restaurant.tagline} A table set for friends, family and every good moment in between.
@@ -44,6 +60,12 @@ export function Hero() {
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">
           <a href="#menu" className="btn-gold">Explore Our Menu</a>
           <a href="#contact" className="btn-outline-light">Contact Us</a>
+        </div>
+        <div className="mt-12 flex gap-2" role="group" aria-label="Choose hero photo">
+          {heroSlides.map((h, i) => (
+            <button key={i} onClick={() => setSlide(i)} aria-label={`Show photo ${i + 1}`} aria-current={i === slide}
+              className={`h-2.5 rounded-full transition-all ${i === slide ? "w-8 bg-gold" : "w-2.5 bg-on-ink/50 hover:bg-on-ink"}`} />
+          ))}
         </div>
       </div>
     </section>
@@ -61,7 +83,7 @@ export function About() {
     <section id="about" className="py-24 md:py-32">
       <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 lg:grid-cols-2 lg:px-8">
         <div className="relative">
-          <img src={interior} alt="Warmly lit restaurant dining room with wooden tables" loading="lazy" width={1024} height={1024} className="aspect-[4/5] w-full rounded-2xl object-cover shadow-card" />
+          <img src={interior} alt="Warmly lit restaurant dining room with wooden tables" loading="lazy" width={1024} height={1024} className="aspect-4/5 w-full rounded-2xl object-cover shadow-card" />
           <img src={chef} alt="Chef finishing a plated dish" loading="lazy" width={1024} height={1280} className="absolute -bottom-8 -right-4 hidden w-44 rounded-xl border-4 border-background object-cover shadow-card sm:block md:w-56" />
         </div>
         <div>
@@ -169,7 +191,7 @@ export function Gallery() {
     <section id="gallery" className="py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionHead eyebrow="Gallery" title="From Our Kitchen to Your Table" />
-        <div className="grid auto-rows-[180px] grid-cols-2 gap-3 md:auto-rows-[220px] md:grid-cols-4 md:gap-4">
+        <div className="grid auto-rows-45 grid-cols-2 gap-3 md:auto-rows-55 md:grid-cols-4 md:gap-4">
           {gallery.map((g, i) => (
             <button key={i} onClick={() => setIdx(i)} aria-label={`Open image: ${g.alt}`} className={`group overflow-hidden rounded-xl ${g.span}`}>
               <img src={g.src} alt={g.alt} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
@@ -178,7 +200,7 @@ export function Gallery() {
         </div>
       </div>
       {idx !== null && (
-        <div role="dialog" aria-modal="true" aria-label={gallery[idx]!.alt} className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/95 p-4" onClick={() => setIdx(null)}>
+        <div role="dialog" aria-modal="true" aria-label={gallery[idx]!.alt} className="fixed inset-0 z-60 flex items-center justify-center bg-ink/95 p-4" onClick={() => setIdx(null)}>
           <button autoFocus aria-label="Close" className="absolute right-4 top-4 inline-flex h-12 w-12 items-center justify-center rounded-full text-on-ink hover:bg-on-ink/10" onClick={() => setIdx(null)}>
             <X />
           </button>
@@ -259,7 +281,7 @@ export function Locations() {
         <div className="grid gap-8 md:grid-cols-2">
           {locs.map((l, i) => (
             <article key={l.id} className="overflow-hidden rounded-2xl bg-card shadow-card">
-              <img src={images[i % images.length]} alt={`Keretii ${l.name}`} loading="lazy" className="aspect-[16/9] w-full object-cover" />
+              <img src={images[i % images.length]} alt={`Keretii ${l.name}`} loading="lazy" className="aspect-video w-full object-cover" />
               <div className="p-7">
                 <div className="flex items-center justify-between gap-3">
                   <h3 className="text-3xl">{l.name}</h3>

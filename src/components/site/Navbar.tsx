@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, Moon, Sun, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "./Logo";
 
@@ -39,6 +39,8 @@ export function Navbar() {
             </li>
           ))}
         </ul>
+        <div className="flex items-center gap-2">
+        <ThemeToggle />
         <a href="#menu" className="btn-gold hidden lg:inline-flex">Explore Menu</a>
         <Button variant="ghost"
           className="inline-flex h-11 w-11 items-center justify-center rounded-full text-on-ink lg:hidden"
@@ -49,6 +51,7 @@ export function Navbar() {
         >
           {open ? <X /> : <Menu />}
         </Button>
+        </div>
       </nav>
       {open && (
         <ul id="mobile-nav" className="space-y-1 border-t border-on-ink/10 px-5 pb-6 pt-2 lg:hidden">
@@ -65,5 +68,22 @@ export function Navbar() {
         </ul>
       )}
     </header>
+  );
+}
+
+function ThemeToggle() {
+  const [dark, setDark] = useState(false);
+  useEffect(() => setDark(document.documentElement.classList.contains("dark")), []);
+  const toggle = () => {
+    const next = !dark;
+    setDark(next);
+    document.documentElement.classList.toggle("dark", next);
+    try { localStorage.setItem("theme", next ? "dark" : "light"); } catch {}
+  };
+  return (
+    <Button variant="ghost" onClick={toggle} aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+      className="inline-flex h-11 w-11 items-center justify-center rounded-full text-on-ink hover:bg-on-ink/10 hover:text-gold">
+      {dark ? <Sun /> : <Moon />}
+    </Button>
   );
 }
