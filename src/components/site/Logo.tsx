@@ -1,5 +1,6 @@
-import logo from "@/assets/keretii-logo.jpg";
+import { cn } from "@/lib/utils";
+import logo from "@/assets/keretii-logo.png";
 
-export function Logo() {
-  return <img src={logo} alt="Keretii Restaurant" width={648} height={483} className="h-16 w-24 rounded-sm bg-card object-contain" />;
+export function Logo({ className }: { className?: string }) {
+  return <img src={logo} alt="Keretii Restaurant" width={648} height={483} className={cn("h-16 w-24 rounded-md object-contain", className)} />;
 }

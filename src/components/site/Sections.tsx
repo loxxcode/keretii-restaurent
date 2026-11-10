@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   ArrowUp, ChefHat, Clock, Heart, Leaf, Mail, MapPin, MessageCircle, Phone, Quote, Sofa, Sparkles, Users, X,
-  Instagram, Facebook, Twitter, Navigation,
+  Instagram, Facebook, Twitter, Music2, Navigation,
 } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import interior from "@/assets/interior.jpg";
@@ -80,7 +80,7 @@ const aboutPoints = [
 
 export function About() {
   return (
-    <section id="about" className="py-24 md:py-32">
+    <section id="about" className="py-10 md:py-18">
       <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 lg:grid-cols-2 lg:px-8">
         <div className="relative">
           <img src={interior} alt="Warmly lit restaurant dining room with wooden tables" loading="lazy" width={1024} height={1024} className="aspect-4/5 w-full rounded-2xl object-cover shadow-card" />
@@ -112,9 +112,9 @@ export function MenuSection() {
   const [active, setActive] = useState<Category | "All">("All");
   const items = active === "All" ? menu : menu.filter((m) => m.category === active);
   return (
-    <section id="menu" className="bg-secondary py-24 md:py-32">
+    <section id="menu" className="bg-secondary pt-2 pb-7">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <SectionHead eyebrow="The Menu" title="A Taste of Keretii">
+        <SectionHead eyebrow="" title="A Taste of Keretii">
           A sample selection to show the style of the menu. Real dishes and prices coming soon.
         </SectionHead>
         <div role="group" aria-label="Filter menu by category" className="mb-12 flex flex-wrap justify-center gap-2">
@@ -129,7 +129,7 @@ export function MenuSection() {
             </Button>
           ))}
         </div>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 md:grid-cols-2 lg:gap-8">
           {items.map((i) => <MenuCard key={i.id} item={i} />)}
         </div>
       </div>
@@ -146,7 +146,7 @@ const highlights = [
 
 export function Highlights() {
   return (
-    <section className="bg-ink py-24">
+    <section className="bg-ink py-14">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionHead eyebrow="Why Keretii" title="Made for Good Company" light />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -188,7 +188,7 @@ export function Gallery() {
   }, [idx]);
 
   return (
-    <section id="gallery" className="py-24 md:py-32">
+    <section id="gallery" className="py-7 md:py-15">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionHead eyebrow="Gallery" title="From Our Kitchen to Your Table" />
         <div className="grid auto-rows-45 grid-cols-2 gap-3 md:auto-rows-55 md:grid-cols-4 md:gap-4">
@@ -219,9 +219,9 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="bg-secondary py-24">
+    <section className="bg-secondary py-8">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <SectionHead eyebrow="Guest Words" title="What a Visit Feels Like">
+        <SectionHead eyebrow="" title="What a Visit Feels Like">
           Demonstration reviews only — to be replaced with real guest feedback.
         </SectionHead>
         <div className="grid gap-6 md:grid-cols-3">
@@ -240,7 +240,7 @@ export function Testimonials() {
 
 function LocationActions({ loc }: { loc: Location }) {
   return (
-    <div className="mt-6 flex flex-wrap gap-3">
+    <div className="flex flex-wrap gap-3 mt-8">
       <a href={loc.mapsUrl} target="_blank" rel="noopener noreferrer" className="btn-gold">
         <Navigation className="h-4 w-4" /> Get Directions
       </a>
@@ -273,9 +273,9 @@ export function Locations() {
   const current = locs.find((l) => l.id === sel)!;
   const images = [interior, grill];
   return (
-    <section id="locations" className="py-24 md:py-32">
+    <section id="locations" className="py-7 md:py-10">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <SectionHead eyebrow="Our Locations" title="Find Us in Kigali">
+        <SectionHead eyebrow="" title="Find Us in Kigali">
           Proposed branch areas. Exact addresses and hours will be added once confirmed.
         </SectionHead>
         <div className="grid gap-8 md:grid-cols-2">
@@ -340,14 +340,14 @@ export function Locations() {
   );
 }
 
-const socialIcons = { Instagram, Facebook, X: Twitter };
+const socialIcons = { Instagram, TikTok: Music2, Facebook, X: Twitter };
 
 export function Contact() {
   const r = restaurant;
   return (
-    <section id="contact" className="bg-secondary py-24 md:py-32">
+    <section id="contact" className="bg-secondary py-10 md:py-18">
       <div className="mx-auto max-w-5xl px-5 lg:px-8">
-        <SectionHead eyebrow="Visit & Contact" title="We'd Love to Host You">
+        <SectionHead eyebrow="" title="We'd Love to Host You">
           Contact details will appear here as soon as they're confirmed.
         </SectionHead>
         <div className="grid gap-8 rounded-3xl bg-card p-8 shadow-card md:grid-cols-2 md:p-12">
@@ -409,7 +409,7 @@ export function Footer() {
     <footer className="bg-ink pt-16 pb-8 text-on-ink-muted">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 md:grid-cols-3 lg:px-8">
         <div>
-          <a href="#home" aria-label="Keretii Restaurant home" className="inline-block"><Logo /></a>
+          <a href="#home" aria-label="Keretii Restaurant home" className="inline-block"><Logo className="h-24 w-35 bg-white" /></a>
           <p className="mt-3 max-w-xs text-sm">{restaurant.description}</p>
         </div>
         <nav aria-label="Footer">

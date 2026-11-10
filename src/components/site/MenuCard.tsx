@@ -10,30 +10,30 @@ export function MenuCard({ item }: { item: MenuItem }) {
       <Dialog>
         <DialogTrigger asChild>
           <Button variant="ghost" aria-label={`View details: ${item.name}`} className="block h-auto w-full overflow-hidden whitespace-normal rounded-none p-0 text-left font-normal hover:bg-card hover:text-card-foreground">
-            <div className="aspect-[4/3] overflow-hidden">
+            <div className="aspect-4/3 overflow-hidden">
               <img src={item.image} alt={item.name} loading="lazy" width={1024} height={1024} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
             </div>
-            <div className="p-6">
-              <span className="text-xs font-semibold uppercase text-accent">{item.category}</span>
+            <div className="p-4 sm:p-6">
+              {/* <span className="text-xs font-semibold uppercase text-accent">{item.category}</span> */}
               <div className="mt-2 flex flex-wrap items-baseline justify-between gap-2">
-                <h3 className="text-2xl">{item.name}</h3>
-                <span className="whitespace-nowrap font-bold">{formatPrice(item)}</span>
+                <h3 className="text-lg leading-tight sm:text-2xl">{item.name}</h3>
+                {/* <span className="whitespace-nowrap font-bold">{formatPrice(item)}</span> */}
               </div>
-              <p className="mt-2 text-sm text-muted-foreground">{item.description}</p>
-              <p className="mt-4 flex items-center gap-1 text-xs font-semibold uppercase text-primary">
+              <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{item.description}</p>
+              {/* <p className="mt-3 flex items-center gap-1 text-xs font-semibold uppercase text-primary">
                 View details <ArrowUpRight className="shrink-0" aria-hidden />
-              </p>
+              </p> */}
             </div>
           </Button>
         </DialogTrigger>
 
-        <div className="flex items-center justify-between gap-3 border-t px-6 pb-6">
-          <p className="text-[11px] uppercase text-muted-foreground">Sample item · price to be confirmed</p>
-          <OrderButton item={item} />
+        <div className="flex items-center justify-center pt-2 gap-3 border-t pb-4">
+          {/* <p className="text-[11px] uppercase text-muted-foreground">Sample item · price to be confirmed</p> */}
+          <OrderButton item={item}/>
         </div>
 
         <DialogContent className="max-h-[90svh] w-[calc(100%-2rem)] max-w-2xl gap-0 overflow-y-auto rounded-lg p-0">
-          <img src={item.image} alt={item.name} className="aspect-[16/10] w-full object-cover" />
+          <img src={item.image} alt={item.name} className="aspect-16/10 w-full object-cover" />
           <div className="p-6 sm:p-8">
             <p className="text-xs font-bold uppercase text-accent">{item.category}</p>
             <DialogTitle className="mt-3 font-serif text-3xl leading-tight sm:text-4xl">{item.name}</DialogTitle>
@@ -74,7 +74,7 @@ export function MenuCard({ item }: { item: MenuItem }) {
               <span className="text-xl font-bold text-primary">{formatPrice(item)}</span>
               <OrderButton item={item} />
             </div>
-            <p className="mt-3 text-right text-xs text-muted-foreground">Sample item · price &amp; recipe to be confirmed</p>
+            {/* <p className="mt-3 text-right text-xs text-muted-foreground">Sample item · price &amp; recipe to be confirmed</p> */}
           </div>
         </DialogContent>
       </Dialog>

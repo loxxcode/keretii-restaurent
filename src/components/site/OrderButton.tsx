@@ -31,7 +31,7 @@ export function OrderButton({ item, className = "" }: { item: MenuItem; classNam
       className={`inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-full bg-gold px-5 text-sm font-bold text-ink transition hover:brightness-110 ${className}`}
     >
       <MessageCircle className="h-4 w-4" aria-hidden />
-      Order on WhatsApp
+      Make Order
     </a>
   );
 }

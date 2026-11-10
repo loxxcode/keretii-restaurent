@@ -27,7 +27,7 @@ export type RestaurantInfo = {
   /** WhatsApp number digits only incl. country code, e.g. "2507XXXXXXXX". */
   whatsapp: string | null;
   hours: string | null;
-  social: { label: "Instagram" | "Facebook" | "X"; url: string | null }[];
+  social: { label: "Instagram" | "TikTok" | "Facebook" | "X"; url: string | null }[];
   locations: Location[];
 };
 
@@ -41,9 +41,10 @@ export const restaurant: RestaurantInfo = {
   whatsapp: "250788888888",
   hours: null,
   social: [
-    { label: "Instagram", url: null },
-    { label: "Facebook", url: null },
-    { label: "X", url: null },
+    { label: "Instagram", url: "https://www.instagram.com/keretii-restraunt/" },
+    { label: "TikTok", url: "https://www.tiktok.com/@keretii-restraunt" },
+    { label: "Facebook", url: "https://www.facebook.com/keretii-restraunt" },
+    { label: "X", url: "https://x.com/keretii-restraunt" },
   ],
   locations: [
     {
