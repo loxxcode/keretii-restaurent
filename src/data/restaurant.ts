@@ -38,7 +38,7 @@ export const restaurant: RestaurantInfo = {
     "A welcoming place in Kigali to gather, share a table and enjoy carefully prepared food.",
   email: null,
   phone: null,
-  whatsapp: "250788888888",
+  whatsapp: "250788371370",
   hours: null,
   social: [
     { label: "Instagram", url: "https://www.instagram.com/keretii-restraunt/" },

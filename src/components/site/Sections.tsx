@@ -11,7 +11,7 @@ import local from "@/assets/local.jpg";
 import snacks from "@/assets/snacks.jpg";
 import drinks from "@/assets/drinks.jpg";
 import dessert from "@/assets/dessert.jpg";
-import { categories, menu, type Category } from "@/data/menu";
+import { categories, menu, menuDetailsNotice, type Category } from "@/data/menu";
 import { Button } from "@/components/ui/button";
 import { Logo } from "./Logo";
 import { MenuCard } from "./MenuCard";
@@ -115,7 +115,7 @@ export function MenuSection() {
     <section id="menu" className="bg-secondary pt-2 pb-7">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionHead eyebrow="" title="A Taste of Keretii">
-          A sample selection to show the style of the menu. Real dishes and prices coming soon.
+          {menuDetailsNotice}
         </SectionHead>
         <div role="group" aria-label="Filter menu by category" className="mb-12 flex flex-wrap justify-center gap-2">
           {(["All", ...categories] as const).map((c) => (

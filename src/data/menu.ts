@@ -1,20 +1,11 @@
-// ✏️ SAMPLE MENU — replace with Keretii Restaurant's real dishes and prices.
-// Prices are placeholders (shown with a "Sample price" label on the site).
-// Ingredients and recipe steps are also sample text, to be confirmed by the kitchen.
-import grill from "@/assets/grill.jpg";
-import local from "@/assets/local.jpg";
-import snacks from "@/assets/snacks.jpg";
-import drinks from "@/assets/drinks.jpg";
-import dessert from "@/assets/dessert.jpg";
-import hero from "@/assets/hero.jpg";
-
 export const categories = [
-  "Main Courses",
+  "Breakfast",
+  "Salads",
+  "Soups",
   "Local Favorites",
   "Grilled Dishes",
-  "Snacks",
+  "Main Courses",
   "Drinks",
-  "Desserts",
 ] as const;
 
 export type Category = (typeof categories)[number];
@@ -26,290 +17,285 @@ export type MenuItem = {
   price: number;
   currency: "RWF";
   category: Category;
-  image: string;
-  /** Key ingredients shown in the dish details pop-up. */
+  images: string[];
   ingredients: string[];
-  /** Preparation steps, in order, shown in the dish details pop-up. */
   recipe: string[];
 };
 
-export const menu: MenuItem[] = [
-  {
-    id: "1",
-    name: "Mixed Grill Plate",
-    description: "Sample dish: chargrilled beef and chicken with rice and seasonal vegetables.",
-    price: 0,
-    currency: "RWF",
-    category: "Main Courses",
-    image: hero,
-    ingredients: [
-      "Beef sirloin",
-      "Chicken thighs",
-      "Basmati rice",
-      "Seasonal vegetables",
-      "House grill spices",
-    ],
-    recipe: [
-      "Season the beef and chicken with house grill spices.",
-      "Chargrill over hot coals until caramelised outside, juicy inside.",
-      "Cook the rice and steam the vegetables separately.",
-      "Plate everything together and serve hot.",
-    ],
+export const menuDetailsNotice =
+  "Descriptions and ingredient lists are draft suggestions pending kitchen confirmation. Please ask about ingredients and allergens before ordering.";
+
+const menuAssets = import.meta.glob<string>("../assets/menu/*/*.jpg", {
+  eager: true,
+  import: "default",
+});
+
+const nameOverrides: Record<string, string> = {
+  "Banana-Pineaple-Smoothie": "Banana Pineapple Smoothie",
+  "Cantinental-Breakfast": "Continental Breakfast",
+  "Checken-Brochette": "Chicken Brochette",
+  "Chicken-Cesar-Salad": "Chicken Caesar Salad",
+  "Fresh Fruit Smooth(banana,pineaple Mango, Ice ,honey ,sugar ,yoghurt)": "Fresh Fruit Smoothie",
+  "Iced-Blended-Mango-Smoothiee": "Iced Blended Mango Smoothie",
+  "Mixed-Smoothy(mango,pineaple,banana)": "Mixed Fruit Smoothie",
+  "Nido-Tea(hot Nido Water, Tea Leaves, Bags)": "Nido Tea",
+  "Peanut-Butter-Smoothie(ice ,banana": "Peanut Butter Smoothie",
+  "Spacial-Omelette": "Special Omelette",
+  "Strawberry-Smoothie(strawberry Fresh,ice,milk),cream)": "Strawberry Smoothie",
+};
+
+type DraftMenuDetails = {
+  description: string;
+  ingredients: string[];
+};
+
+const draftMenuDetails: Record<string, DraftMenuDetails> = {
+  Agatogo: {
+    description: "A comforting East African green-banana stew.",
+    ingredients: ["Green bananas", "Tomatoes", "Onion", "Cooking oil", "Seasoning"],
   },
-  {
-    id: "2",
-    name: "Greens & Plantain Stew",
-    description: "Sample dish: slow-cooked greens with green bananas and beans.",
-    price: 0,
-    currency: "RWF",
-    category: "Local Favorites",
-    image: local,
-    ingredients: [
-      "Fresh greens",
-      "Green bananas",
-      "Red beans",
-      "Tomatoes & onions",
-      "Local spices",
-    ],
-    recipe: [
-      "Simmer the beans in salted water until tender.",
-      "Cook the green bananas separately, then drain.",
-      "Fry the tomatoes and onions, add the greens and spices.",
-      "Combine with the beans and serve warm with the bananas.",
-    ],
+  "Avocado-Salad": {
+    description: "Ripe avocado served with a fresh, crisp salad.",
+    ingredients: ["Avocado", "Lettuce", "Tomato", "Cucumber", "Onion", "Dressing"],
   },
-  {
-    id: "3",
-    name: "Beef Brochettes",
-    description: "Sample dish: marinated skewers with grilled plantain and herb sauce.",
-    price: 0,
-    currency: "RWF",
-    category: "Grilled Dishes",
-    image: grill,
-    ingredients: [
-      "Beef sirloin",
-      "Fresh herbs",
-      "Garlic & ginger",
-      "Spice marinade",
-      "Grilled plantain",
-    ],
-    recipe: [
-      "Cut the beef into even cubes.",
-      "Marinate for four hours in the herb and spice mix.",
-      "Thread the meat onto skewers.",
-      "Grill, turning often, until evenly charred.",
-      "Serve with grilled plantain and herb sauce.",
-    ],
+  "Cantinental-Breakfast": {
+    description: "A classic continental-style breakfast plate.",
+    ingredients: ["Bread", "Eggs", "Butter", "Fresh fruit", "Tea or coffee"],
   },
-  {
-    id: "4",
-    name: "Crispy Samosas",
-    description: "Sample dish: golden pastries with a house chili dip.",
-    price: 0,
-    currency: "RWF",
-    category: "Snacks",
-    image: snacks,
-    ingredients: ["Wheat pastry", "Spiced potatoes", "Peas", "Onions", "House chili dip"],
-    recipe: [
-      "Cook the spiced potato, pea and onion filling and let it cool.",
-      "Fold the pastry into tight triangles and seal the edges.",
-      "Deep-fry until golden and crisp.",
-      "Drain, then serve hot with the house chili dip.",
-    ],
+  "Chapatti-Omelette": {
+    description: "A savory omelette served with chapatti.",
+    ingredients: ["Eggs", "Chapatti", "Onion", "Tomato", "Cooking oil", "Seasoning"],
   },
-  {
-    id: "5",
-    name: "Passion & Ginger Tea",
-    description: "Sample drinks: fresh fruit juice or a warming ginger infusion.",
-    price: 0,
-    currency: "RWF",
-    category: "Drinks",
-    image: drinks,
-    ingredients: ["Fresh passion fruit", "Water", "Honey", "Fresh ginger", "Lemon"],
-    recipe: [
-      "Juice the passion fruit and strain out the seeds.",
-      "Sweeten lightly with honey and chill.",
-      "Steep sliced ginger and lemon in hot water.",
-      "Serve the juice cold and the tea warm.",
-    ],
+  "Checken-Brochette": {
+    description: "Seasoned chicken pieces cooked on a brochette.",
+    ingredients: ["Chicken", "Cooking oil", "Garlic", "Spices", "Salt"],
   },
-  {
-    id: "6",
-    name: "Chocolate Torte",
-    description: "Sample dessert: rich chocolate with fresh berries.",
-    price: 0,
-    currency: "RWF",
-    category: "Desserts",
-    image: dessert,
-    ingredients: ["Dark chocolate", "Butter", "Eggs", "Sugar", "Almond flour", "Fresh berries"],
-    recipe: [
-      "Melt the chocolate with the butter until smooth.",
-      "Whisk the eggs with sugar, then fold in the chocolate.",
-      "Add the almond flour and bake until set but soft inside.",
-      "Cool, top with fresh berries and serve.",
-    ],
+  "Cheese-Omelette": {
+    description: "A folded omelette with melted cheese.",
+    ingredients: ["Eggs", "Cheese", "Butter or cooking oil", "Salt", "Black pepper"],
   },
-  {
-    id: "7",
-    name: "Chocolate Torte",
-    description: "Sample dessert: rich chocolate with fresh berries.",
-    price: 0,
-    currency: "RWF",
-    category: "Desserts",
-    image: dessert,
-    ingredients: ["Dark chocolate", "Butter", "Eggs", "Sugar", "Almond flour", "Fresh berries"],
-    recipe: [
-      "Melt the chocolate with the butter until smooth.",
-      "Whisk the eggs with sugar, then fold in the chocolate.",
-      "Add the almond flour and bake until set but soft inside.",
-      "Cool, top with fresh berries and serve.",
-    ],
+  "Chicken-Cesar-Salad": {
+    description: "A Caesar-style salad topped with chicken.",
+    ingredients: ["Chicken", "Lettuce", "Parmesan", "Croutons", "Caesar dressing"],
   },
-  {
-    id: "8",
-    name: "Chocolate Torte",
-    description: "Sample dessert: rich chocolate with fresh berries.",
-    price: 0,
-    currency: "RWF",
-    category: "Desserts",
-    image: dessert,
-    ingredients: ["Dark chocolate", "Butter", "Eggs", "Sugar", "Almond flour", "Fresh berries"],
-    recipe: [
-      "Melt the chocolate with the butter until smooth.",
-      "Whisk the eggs with sugar, then fold in the chocolate.",
-      "Add the almond flour and bake until set but soft inside.",
-      "Cool, top with fresh berries and serve.",
-    ],
+  "Chicken-Drumstick": {
+    description: "A chicken drumstick seasoned and cooked until golden.",
+    ingredients: ["Chicken drumstick", "Cooking oil", "Spices", "Salt"],
   },
-  {
-    id: "9",
-    name: "Chocolate Torte",
-    description: "Sample dessert: rich chocolate with fresh berries.",
-    price: 0,
-    currency: "RWF",
-    category: "Desserts",
-    image: dessert,
-    ingredients: ["Dark chocolate", "Butter", "Eggs", "Sugar", "Almond flour", "Fresh berries"],
-    recipe: [
-      "Melt the chocolate with the butter until smooth.",
-      "Whisk the eggs with sugar, then fold in the chocolate.",
-      "Add the almond flour and bake until set but soft inside.",
-      "Cool, top with fresh berries and serve.",
-    ],
+  "Chicken-Soup": {
+    description: "A warming soup with chicken and vegetables.",
+    ingredients: ["Chicken", "Carrot", "Onion", "Stock", "Herbs"],
   },
-  {
-    id: "10",
-    name: "Chocolate Torte",
-    description: "Sample dessert: rich chocolate with fresh berries.",
-    price: 0,
-    currency: "RWF",
-    category: "Desserts",
-    image: dessert,
-    ingredients: ["Dark chocolate", "Butter", "Eggs", "Sugar", "Almond flour", "Fresh berries"],
-    recipe: [
-      "Melt the chocolate with the butter until smooth.",
-      "Whisk the eggs with sugar, then fold in the chocolate.",
-      "Add the almond flour and bake until set but soft inside.",
-      "Cool, top with fresh berries and serve.",
-    ],
+  "Ginger-Carrots-Soup": {
+    description: "A smooth carrot soup with warming ginger.",
+    ingredients: ["Carrots", "Ginger", "Onion", "Stock", "Seasoning"],
   },
-  {
-    id: "11",
-    name: "Chocolate Torte",
-    description: "Sample dessert: rich chocolate with fresh berries.",
-    price: 0,
-    currency: "RWF",
-    category: "Desserts",
-    image: dessert,
-    ingredients: ["Dark chocolate", "Butter", "Eggs", "Sugar", "Almond flour", "Fresh berries"],
-    recipe: [
-      "Melt the chocolate with the butter until smooth.",
-      "Whisk the eggs with sugar, then fold in the chocolate.",
-      "Add the almond flour and bake until set but soft inside.",
-      "Cool, top with fresh berries and serve.",
-    ],
+  "Mixed-Salad": {
+    description: "A colorful mix of fresh salad vegetables.",
+    ingredients: ["Lettuce", "Tomato", "Cucumber", "Carrot", "Onion", "Dressing"],
   },
-  {
-    id: "12",
-    name: "Chocolate Torte",
-    description: "Sample dessert: rich chocolate with fresh berries.",
-    price: 0,
-    currency: "RWF",
-    category: "Desserts",
-    image: dessert,
-    ingredients: ["Dark chocolate", "Butter", "Eggs", "Sugar", "Almond flour", "Fresh berries"],
-    recipe: [
-      "Melt the chocolate with the butter until smooth.",
-      "Whisk the eggs with sugar, then fold in the chocolate.",
-      "Add the almond flour and bake until set but soft inside.",
-      "Cool, top with fresh berries and serve.",
-    ],
+  "Plain-Omelette": {
+    description: "A simply prepared, fluffy omelette.",
+    ingredients: ["Eggs", "Butter or cooking oil", "Salt", "Black pepper"],
   },
-  {
-    id: "13",
-    name: "Chocolate Torte",
-    description: "Sample dessert: rich chocolate with fresh berries.",
-    price: 0,
-    currency: "RWF",
-    category: "Desserts",
-    image: dessert,
-    ingredients: ["Dark chocolate", "Butter", "Eggs", "Sugar", "Almond flour", "Fresh berries"],
-    recipe: [
-      "Melt the chocolate with the butter until smooth.",
-      "Whisk the eggs with sugar, then fold in the chocolate.",
-      "Add the almond flour and bake until set but soft inside.",
-      "Cool, top with fresh berries and serve.",
-    ],
+  "Provincial-Chicken": {
+    description: "Chicken simmered with vegetables in a savory sauce.",
+    ingredients: ["Chicken", "Tomato", "Onion", "Bell pepper", "Herbs", "Seasoning"],
   },
-  {
-    id: "14",
-    name: "Chocolate Torte",
-    description: "Sample dessert: rich chocolate with fresh berries.",
-    price: 0,
-    currency: "RWF",
-    category: "Desserts",
-    image: dessert,
-    ingredients: ["Dark chocolate", "Butter", "Eggs", "Sugar", "Almond flour", "Fresh berries"],
-    recipe: [
-      "Melt the chocolate with the butter until smooth.",
-      "Whisk the eggs with sugar, then fold in the chocolate.",
-      "Add the almond flour and bake until set but soft inside.",
-      "Cool, top with fresh berries and serve.",
-    ],
+  "Pumpkin-Soup": {
+    description: "A smooth, comforting soup made with pumpkin.",
+    ingredients: ["Pumpkin", "Onion", "Garlic", "Stock", "Seasoning"],
   },
-  {
-    id: "15",
-    name: "Chocolate Torte",
-    description: "Sample dessert: rich chocolate with fresh berries.",
-    price: 0,
-    currency: "RWF",
-    category: "Desserts",
-    image: dessert,
-    ingredients: ["Dark chocolate", "Butter", "Eggs", "Sugar", "Almond flour", "Fresh berries"],
-    recipe: [
-      "Melt the chocolate with the butter until smooth.",
-      "Whisk the eggs with sugar, then fold in the chocolate.",
-      "Add the almond flour and bake until set but soft inside.",
-      "Cool, top with fresh berries and serve.",
-    ],
+  "Spacial-Omelette": {
+    description: "A generously filled omelette with a savory mix of toppings.",
+    ingredients: ["Eggs", "Tomato", "Onion", "Bell pepper", "Cheese", "Herbs"],
   },
-  {
-    id: "16",
-    name: "Chocolate Torte",
-    description: "Sample dessert: rich chocolate with fresh berries.",
-    price: 0,
-    currency: "RWF",
-    category: "Desserts",
-    image: dessert,
-    ingredients: ["Dark chocolate", "Butter", "Eggs", "Sugar", "Almond flour", "Fresh berries"],
-    recipe: [
-      "Melt the chocolate with the butter until smooth.",
-      "Whisk the eggs with sugar, then fold in the chocolate.",
-      "Add the almond flour and bake until set but soft inside.",
-      "Cool, top with fresh berries and serve.",
-    ],
+  "Spanish-Omelette": {
+    description: "A Spanish-style omelette with potato and onion.",
+    ingredients: ["Eggs", "Potato", "Onion", "Olive oil", "Salt"],
   },
-];
+  "Striploin-Steak": {
+    description: "A seared striploin steak seasoned to bring out its rich flavor.",
+    ingredients: ["Beef striploin", "Cooking oil", "Garlic", "Salt", "Black pepper"],
+  },
+  "Tomato-Soup": {
+    description: "A savory soup made with ripe tomatoes.",
+    ingredients: ["Tomatoes", "Onion", "Garlic", "Stock", "Herbs"],
+  },
+  "Vegetable-Soup": {
+    description: "A hearty soup with a selection of vegetables.",
+    ingredients: ["Seasonal vegetables", "Onion", "Stock", "Herbs", "Seasoning"],
+  },
+  "African-Coffee": {
+    description: "Freshly brewed coffee served hot.",
+    ingredients: ["Coffee", "Water"],
+  },
+  "African-Tea": {
+    description: "A warming cup of African-style tea.",
+    ingredients: ["Tea leaves", "Water", "Milk", "Sugar", "Spices"],
+  },
+  "Banana-Pineaple-Smoothie": {
+    description: "A cool fruit smoothie blending banana and pineapple.",
+    ingredients: ["Banana", "Pineapple", "Yogurt", "Ice"],
+  },
+  "Black-Coffee": {
+    description: "A straightforward cup of freshly brewed black coffee.",
+    ingredients: ["Coffee", "Water"],
+  },
+  "Black-Tea": {
+    description: "A freshly brewed cup of black tea.",
+    ingredients: ["Black tea", "Water"],
+  },
+  "English-Tea": {
+    description: "A classic cup of English-style tea.",
+    ingredients: ["Black tea", "Water", "Milk"],
+  },
+  "Fresh Fruit Smooth(banana,pineaple Mango, Ice ,honey ,sugar ,yoghurt)": {
+    description: "A chilled fruit smoothie with a blend of tropical fruit.",
+    ingredients: ["Banana", "Pineapple", "Mango", "Ice", "Honey", "Sugar", "Yogurt"],
+  },
+  "Green-Smoothie": {
+    description: "A cool blended drink with greens and fruit.",
+    ingredients: ["Leafy greens", "Mixed fruit", "Yogurt", "Ice"],
+  },
+  "Hot-Chocolate": {
+    description: "A warm, chocolatey drink served hot.",
+    ingredients: ["Cocoa", "Milk", "Sugar"],
+  },
+  "Hot-Milk": {
+    description: "A comforting cup of warm milk.",
+    ingredients: ["Milk"],
+  },
+  "Iced-Blended-Mango-Smoothiee": {
+    description: "A chilled blended mango drink.",
+    ingredients: ["Mango", "Milk", "Ice", "Sugar"],
+  },
+  "Mango-Juice": {
+    description: "A refreshing juice made with mango.",
+    ingredients: ["Mango", "Water", "Sugar", "Ice"],
+  },
+  "Masala-Tea": {
+    description: "A fragrant tea brewed with warming spices.",
+    ingredients: ["Black tea", "Milk", "Water", "Spices", "Sugar"],
+  },
+  "Mixed-Smoothy(mango,pineaple,banana)": {
+    description: "A chilled smoothie blended from a mix of tropical fruits.",
+    ingredients: ["Mango", "Pineapple", "Banana", "Yogurt", "Ice"],
+  },
+  "Mocktail-Fresh-Fruit-Juice": {
+    description: "A colorful, non-alcoholic drink with fresh fruit flavors.",
+    ingredients: ["Mixed fruit", "Fruit juice", "Ice"],
+  },
+  "Nido-Tea(hot Nido Water, Tea Leaves, Bags)": {
+    description: "A warm tea blended with Nido milk.",
+    ingredients: ["Nido milk powder", "Tea leaves", "Water", "Sugar"],
+  },
+  "Orange-Juice": {
+    description: "A bright, refreshing orange juice.",
+    ingredients: ["Oranges", "Water", "Ice"],
+  },
+  "Passion-Juice": {
+    description: "A tangy, refreshing passion fruit juice.",
+    ingredients: ["Passion fruit", "Water", "Sugar", "Ice"],
+  },
+  "Peanut-Butter-Smoothie(ice ,banana": {
+    description: "A chilled smoothie combining peanut butter and banana.",
+    ingredients: ["Peanut butter", "Banana", "Milk", "Ice"],
+  },
+  "Pineapple-Juice": {
+    description: "A refreshing juice made with pineapple.",
+    ingredients: ["Pineapple", "Water", "Ice"],
+  },
+  Soda: {
+    description: "A chilled carbonated soft drink.",
+    ingredients: ["Carbonated soft drink"],
+  },
+  "Spice-Tea": {
+    description: "A warming cup of tea with aromatic spices.",
+    ingredients: ["Tea leaves", "Milk", "Water", "Spices", "Sugar"],
+  },
+  "Strawberry-Smoothie(strawberry Fresh,ice,milk),cream)": {
+    description: "A cool strawberry smoothie with a creamy finish.",
+    ingredients: ["Strawberries", "Milk", "Ice", "Cream"],
+  },
+  "Tree-Tomato-Juice": {
+    description: "A tart, refreshing juice made with tree tomatoes.",
+    ingredients: ["Tree tomatoes", "Water", "Sugar", "Ice"],
+  },
+  Water: {
+    description: "A bottle of refreshing drinking water.",
+    ingredients: ["Water"],
+  },
+};
+
+type MenuAssetGroup = {
+  folder: "Foods" | "Drinks";
+  baseName: string;
+  images: { order: number; src: string }[];
+};
+
+const groupedAssets = new Map<string, MenuAssetGroup>();
+
+for (const [path, src] of Object.entries(menuAssets)) {
+  const match = path.match(/\/(Foods|Drinks)\/(.+?)(\d+)\.jpg$/);
+  if (!match) continue;
+
+  const [, folder, baseName, order] = match;
+  if (!folder || !baseName || !order || (folder !== "Foods" && folder !== "Drinks")) continue;
+
+  const groupKey = `${folder}/${baseName}`;
+  const image = { order: Number(order), src };
+  const group = groupedAssets.get(groupKey);
+  if (group) {
+    group.images.push(image);
+  } else {
+    groupedAssets.set(groupKey, { folder, baseName, images: [image] });
+  }
+}
+
+function getCategory(folder: MenuAssetGroup["folder"], baseName: string): Category {
+  if (folder === "Drinks") return "Drinks";
+  if (/salad/i.test(baseName)) return "Salads";
+  if (/soup/i.test(baseName)) return "Soups";
+  if (/breakfast|omelette|chapatti/i.test(baseName)) return "Breakfast";
+  if (/agatogo/i.test(baseName)) return "Local Favorites";
+  if (/brochette|drumstick|steak/i.test(baseName)) return "Grilled Dishes";
+  return "Main Courses";
+}
+
+function getName(baseName: string): string {
+  const override = nameOverrides[baseName];
+  if (override) return override;
+
+  return baseName
+    .replace(/[-_]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\b[a-z]/g, (letter) => letter.toUpperCase());
+}
+
+export const menu: MenuItem[] = [...groupedAssets.values()]
+  .sort((a, b) => {
+    if (a.folder !== b.folder) return a.folder === "Foods" ? -1 : 1;
+    return getName(a.baseName).localeCompare(getName(b.baseName));
+  })
+  .map(({ folder, baseName, images }) => {
+    const name = getName(baseName);
+    const details = draftMenuDetails[baseName];
+    if (!details) throw new Error(`Missing draft description and ingredients for "${baseName}"`);
+
+    return {
+      id: `${folder.toLowerCase()}-${baseName.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+      name,
+      description: details.description,
+      price: 0,
+      currency: "RWF",
+      category: getCategory(folder, baseName),
+      images: images.sort((a, b) => a.order - b.order).map(({ src }) => src),
+      ingredients: details.ingredients,
+      recipe: [],
+    };
+  });
 
 /** price 0 = not yet supplied */
 export const formatPrice = (item: MenuItem) =>

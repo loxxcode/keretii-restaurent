@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { menu } from "@/data/menu";
 import { orderMessage, whatsappOrderUrl } from "@/lib/order";
 
-const NUMBER = "250788123456";
+const NUMBER = "250788371370";
 
 describe("WhatsApp order link", () => {
   it("names the clicked dish in the message", () => {
