@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Navbar } from "@/components/site/Navbar";
 import {
-  About, BackToTop, Contact, Footer, Gallery, Hero, Highlights, Locations, MenuSection, Testimonials,
+  About, BackToTop, Contact, Footer, Gallery, Hero, Highlights, Locations, MenuSection, Services, Testimonials,
 } from "@/components/site/Sections";
 
 const title = "Keretii Restaurant | Great Food and Memorable Dining";
@@ -30,6 +30,7 @@ function Index() {
         <Hero />
         <About />
         <MenuSection />
+        <Services />
         <Highlights />
         <Gallery />
         <Testimonials />

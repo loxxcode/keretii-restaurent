@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
-  ArrowUp, ChefHat, Clock, Heart, Leaf, Mail, MapPin, MessageCircle, Phone, Quote, Sofa, Sparkles, Users, X,
+  ArrowUp, CakeSlice, ChefHat, Clock, GraduationCap, Heart, Leaf, Mail, MapPin, MessageCircle, PartyPopper, Phone,
+  Quote, Sofa, Sparkles, Truck, UtensilsCrossed, Users, X,
   Instagram, Facebook, Twitter, Music2, Navigation,
 } from "lucide-react";
 import hero from "@/assets/hero.jpg";
@@ -131,6 +132,50 @@ export function MenuSection() {
         </div>
         <div className="grid grid-cols-1 gap-4 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 md:grid-cols-2 lg:gap-8">
           {items.map((i) => <MenuCard key={i.id} item={i} />)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const services = [
+  { title: "Outside Catering", text: "Catering for parties, meetings and private gatherings.", icon: UtensilsCrossed },
+  { title: "Delivery", text: "Ask about delivery availability for your area and order.", icon: Truck },
+  { title: "24 Hours Open", text: "Late-night or around-the-clock service for your plans.", icon: Clock },
+  { title: "Cake", text: "Custom cakes for birthdays, celebrations and special days.", icon: CakeSlice },
+  { title: "Training & Internship", text: "Enquire about kitchen and restaurant learning opportunities.", icon: GraduationCap },
+  { title: "Ceremony & Event", text: "Food and hosting support for ceremonies and memorable events.", icon: PartyPopper },
+];
+
+export function Services() {
+  const whatsappUrl = (service: string) =>
+    restaurant.whatsapp
+      ? `https://wa.me/${restaurant.whatsapp}?text=${encodeURIComponent(`Hello Keretii Restaurant, I would like to enquire about ${service}.`)}`
+      : "#contact";
+
+  return (
+    <section id="services" className="py-10 md:py-16">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <SectionHead eyebrow="More at Keretii" title="Our Other Services">
+          Choose a service to send us an enquiry on WhatsApp.
+        </SectionHead>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map(({ title, text, icon: Icon }) => (
+            <a
+              key={title}
+              href={whatsappUrl(title)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group rounded-2xl border border-border bg-card p-7 shadow-card transition-colors hover:border-gold"
+            >
+              <Icon className="h-8 w-8 text-accent transition-colors group-hover:text-gold" aria-hidden />
+              <h3 className="mt-5 text-2xl">{title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{text}</p>
+              <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-accent group-hover:text-gold">
+                <MessageCircle className="h-4 w-4" /> Enquire
+              </span>
+            </a>
+          ))}
         </div>
       </div>
     </section>
